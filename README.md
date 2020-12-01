@@ -26,6 +26,12 @@ it, simply add the following line to your Podfile:
 pod 'ImageSlideshow', '~> 1.8.3'
 ```
 
+For this version:
+
+```ruby
+pod 'ImageSlideshow', :git => 'https://github.com/alvaolo/ImageSlideshow'
+```
+
 ### Carthage
 To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
 
