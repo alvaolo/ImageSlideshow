@@ -4,6 +4,8 @@
 //
 //  Created by Petr Zvoníček on 31.08.15.
 //
+//  Updated by Antoine Lessard on 1.12.2020
+//
 
 import UIKit
 
@@ -27,6 +29,9 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     /// Delete button
     open var deleteButton = UIButton()
+    
+    /// Set as main button
+    open var setAsMainButton = UIButton()
 
     /// Closure called on page selection
     open var pageSelected: ((_ page: Int) -> Void)?
@@ -85,6 +90,13 @@ open class FullScreenSlideshowViewController: UIViewController {
         deleteButton.tintColor = .white
         deleteButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.deleteCurrentPhoto), for: .touchUpInside)
         view.addSubview(deleteButton)
+        
+        setMainButton.setImage(UIImage(named: "ic_star", in: Bundle(for: type(of: self)), compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        setMainButton.sizeToFit()
+        setMainButton.tintColor = .white
+        setMainButton.addTarget(self, action: #selector(FullScreenSlideshowViewController.setAsMainPhoto), for: .touchUpInside)
+        view.addSubview(setMainButton)
+
     }
 
     override open var prefersStatusBarHidden: Bool {
@@ -119,6 +131,10 @@ open class FullScreenSlideshowViewController: UIViewController {
 
             let deleteButtonMinX =  view.frame.width - closeButton.frame.minX - deleteButton.frame.width
             deleteButton.frame = CGRect(x: deleteButtonMinX, y: closeButton.frame.minY, width: deleteButton.frame.width, height: deleteButton.frame.height)
+            
+            let setMainButtonMinX = deleteButtonMinX - deleteButton.frame.width - setMainButton.frame.width
+            setMainButton.frame = CGRect(x: setMainButtonMinX, y: closeButton.frame.minY, width: setMainButton.frame.width, height: setMainButton.frame.height)
+
         }
 
         slideshow.frame = view.frame
@@ -135,6 +151,11 @@ open class FullScreenSlideshowViewController: UIViewController {
 
     @objc func deleteCurrentPhoto() {
         delegate?.fullScreenSlideshowViewControllerDidTapDeletePhoto(self, photoIndex: slideshow.currentPage)
+        dismiss(animated: true)
+    }
+    
+    @objc func setAsMainPhoto(){
+        delegate?.fullScreenSlideshowViewControllerDidTapSetAsMainPhoto(self, photoIndex: slideshow.currentPage)
         dismiss(animated: true)
     }
 }
