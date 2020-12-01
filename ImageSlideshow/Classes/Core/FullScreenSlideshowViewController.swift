@@ -31,7 +31,7 @@ open class FullScreenSlideshowViewController: UIViewController {
     open var deleteButton = UIButton()
     
     /// Set as main button
-    open var setAsMainButton = UIButton()
+    open var setMainButton = UIButton()
 
     /// Closure called on page selection
     open var pageSelected: ((_ page: Int) -> Void)?
